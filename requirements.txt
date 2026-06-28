@@ -1,0 +1,10 @@
+# ============================================================
+# requirements.txt (for Hugging Face Space)
+# ============================================================
+fastapi[standard]
+uvicorn
+joblib
+scikit-learn
+pandas
+seaborn
+datafun-toolkit
