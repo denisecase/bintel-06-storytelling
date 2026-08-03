@@ -11,9 +11,9 @@
 cff-version: "1.2.0"
 type: software
 
-title: "ml-06-serving"
+title: "bintel-06-storytelling"
 version: "0.1.0"
-date-released: "2026-06-16"
+date-released: "2026-07-23"
 
 authors:
   - family-names: Case
@@ -21,24 +21,25 @@ authors:
     orcid: "https://orcid.org/0000-0001-6165-7389"
     affiliation: "Northwest Missouri State University, School of Computer Science and Information Systems, Maryville, MO, USA"
 
-repository-code: "https://github.com/denisecase/ml-06-serving"
-url: "https://github.com/denisecase/ml-06-serving"
+repository-code: "https://github.com/denisecase/bintel-06-storytelling"
+url: "https://github.com/denisecase/bintel-06-storytelling"
 license: MIT
 
 abstract: >
-  Machine learning project.
-  Learn to deploy and serve a trained model,
-  save and load model artifacts, wrap a model in a FastAPI service,
-  and handle inputs, validation, and prediction requests.
+  Business intelligence storytelling project.
+  Use reporting-ready data, pandas, and data visualizations
+  to answer a business question, identify key insights,
+  and communicate a supported recommendation.
 
 keywords:
-  - data analytics
-  - notebooks
-  - machine learning
-  - model-serving
-  - fastapi
-  - computer-science-education
-  - data-analytics-education
+  - business-intelligence
+  - data-storytelling
+  - analytical-storytelling
+  - business-insights
+  - data-visualization
+  - reporting
+  - decision-support
+  - smart-sales
   - professional-python
   - reproducible-workflows
   - ci-cd
@@ -46,10 +47,9 @@ keywords:
   - software-quality
   - professional-practice
   - python
-  - jupyter
   - pandas
-  - scikit-learn
-  - joblib
+  - matplotlib
+  - seaborn
   - git
   - github
   - open-source

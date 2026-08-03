@@ -1,82 +1,33 @@
-# ml-06-serving
+# bintel-06-storytelling
 
 [![Workflow Guide](https://img.shields.io/badge/Pro--Guide-pro--analytics--02-green)](https://denisecase.github.io/pro-analytics-02/workflow-b-apply-example-project/)
 [![Python 3.14](https://img.shields.io/badge/python-3.14%2B-blue?logo=python)](./pyproject.toml)
 [![MIT](https://img.shields.io/badge/license-see%20LICENSE-yellow.svg)](./LICENSE)
 
-> Professional Python project: deploying and serving machine learning models.
-
-## Publishing Predictive Engines
-
-A machine learning model learns patterns from data.
-But, once trained, the model might just sit on a single computer.
-
-**Serving** a model means wrapping it in a small web service
-so anyone can send it a data request over the internet
-and get a prediction back.
-
-In this project, we train a model that
-identifies penguin species from physical measurements,
-then deploy it so you can ask it
-**what is the most likely penguin species**
-(given the measurements you provided in the request)
-from anywhere in the world.
+> Professional Python project: BI storytelling with smart sales data.
 
 ## Project Description
 
-This project focuses on learning to deploy a trained model so others can use it.
+This project focuses on addressing one specific business goal
+end to end — from data to insight to recommendation.
+
+We work with the smart sales data warehouse built in bintel-04.
 
 We learn to:
 
-- save and load a trained model
-- wrap a model in a simple API or script
-- validate inputs and handle errors gracefully
-- think about drift, versioning, and monitoring
-
-## Project Dependencies
-
-This project needs additional dependencies
-
-```toml
-    "fastapi[standard]", # for serving - a web framework for building APIs
-    "uvicorn",           # for serving - ASGI server for FastAPI
-    "joblib",            # for model serialization (saving and loading models)
-```
-
-## Project Process
-
-A `.joblib` file is a serialized Python object that holds
-the trained model frozen to disk.
-
-The package `joblib` converts the in-memory **RandomForestClassifier**
-(with all its learned decision trees and their weights)
-into bytes and writes them to a file.
-
-Loading it back gives us the same trained model
-without having to retrain.
-
-This is how serving a trained model works:
-train once, save once, load once at startup,
-then predict on every incoming request.
-
-## Example Notebook + Your Notebook
-
-Keep the example notebook as it is.
-Either copy it or use it to build a new notebook that ends in \_yourname.
-See [docs/your-files.md](docs/your-files.md) for more.
-
-Links:
-
-- [ml_06_case.ipynb](notebooks/ml_06_case.ipynb)
+- define a clear business goal and KPI
+- query only the data needed to answer the business question
+- analyze results using OLAP techniques
+- visualize findings with charts that support the recommendation
+- write a clear, actionable business recommendation
 
 ## Working Files
 
 You'll work with these areas:
 
-- **data/raw** - raw data for exploration (only if you add a dataset)
+- **data/reporting** - reporting-ready data generated earlier
 - **docs/** - project narrative and documentation
-- **src/bizintel/** - the app is an example; run only (no need to modify)
-- **notebooks/** - interactive analysis
+- **src/bizintel/** - the app is an example; run only (copy to a new file for your work)
 - **pyproject.toml** - update authorship & links
 - **zensical.toml** - update authorship & links
 
@@ -101,8 +52,8 @@ Working through issues is part of implementing professional projects.
 
 ## Success
 
-After completing Phase 1. **Start & Run**, you'll have your own GitHub project,
-with the example notebook executed and committed,
+After completing Phase 1. **Start & Run**,
+you'll have your own GitHub project,
 and running the example module will print out:
 
 ```shell
@@ -125,9 +76,9 @@ open a machine terminal in your `Repos` folder:
 
 ```shell
 # Replace username with YOUR GitHub username.
-git clone https://github.com/username/ml-06-serving
+git clone https://github.com/username/bintel-06-storytelling
 
-cd ml-06-serving
+cd bintel-06-storytelling
 code .
 ```
 
@@ -151,16 +102,15 @@ uvx pre-commit run --all-files
 # repeat if changes were made
 uvx pre-commit run --all-files
 
-# run the example module to verify the environment (.venv/)
+# OPTIONAL: run the example module
 uv run python -m bizintel.app_case
 
-# TASK 1: train the example model and save it to artifacts/model.joblib.
-uv run python -m bizintel.model_builder_case
+# TASK 1: run the example storytelling module for an example problem
+uv run python -m bizintel.storytelling_case
 
-# CUSTOM: After completing your custom project,
-# Add the command to
-# train your custom model and save it to artifacts/model_yourname.joblib
-# uv run python -m bizintel.model_builder_yourname
+# TASK 2: run your own storytelling module that looks at a different problem
+# add your command in the line below
+
 
 # run common chores
 uv run ruff format .
@@ -192,221 +142,61 @@ You accidentally started Python interactive mode.
 It happens.
 Press `Ctrl+c` (both keys together) or `Ctrl+Z` then `Enter` on Windows.
 
-## Example Output (Can Remove this Section after You Verify)
+## Example Output (Remove or replace this Section after You Verify)
 
 ```shell
-| INFO | MB | Load data.................
-| INFO | MB | Loading dataset: penguins
-| INFO | MB | Loaded: 344 rows, 7 columns
-| INFO | MB | Model rows (after dropping missing): 342
-| INFO | MB | Split data................
-| INFO | MB | Train instances: 273
-| INFO | MB | Test instances:  69
-| INFO | MB | Train model...............
-| INFO | MB | Training RandomForestClassifier on 273 instances
-| INFO | MB | Training complete
-| INFO | MB | Evaluate model............
-| INFO | MB | Test accuracy: 1.000
-| INFO | MB | Save model................
-| INFO | MB | Saved model to: artifacts\model.joblib
-| INFO | MB | Summarize.................
-| INFO | MB | ========================
-| INFO | MB | SUMMARY
-| INFO | MB | ========================
-| INFO | MB | Dataset:  penguins
-| INFO | MB | Target:   species
-| INFO | MB | Features: ['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']
-| INFO | MB | Artifact: artifacts\model.joblib
-| INFO | MB | ========================
-| INFO | MB | ========================
-| INFO | MB | Executed successfully!
-| INFO | MB | ========================
-```
-
-## Terminal 2: Right-click and Rename "server"
-
-Open a second terminal. Right-click to rename this terminal "server".
-
-Run:
-
-```shell
-# Task 2. Start the example server
-uv run fastapi dev src/bizintel/serve_case.py
-```
-
-Keep this terminal open.
-You should see the following which
-means it is ready to receive requests:
-
-```text
-
-   FastAPI   Starting development server 🚀
-
-             Searching for package file structure from directories with __init__.py files
-| INFO | M06 | === RUN START ===
-| INFO | M06 | project=M06
-| INFO | M06 | repo_dir=ml-06-serving
-| INFO | M06 | python=3.14.0
-| INFO | M06 | os=Windows 11
-| INFO | M06 | shell=powershell
-| INFO | M06 | cwd=.
-| INFO | M06 | github_actions=False
-| INFO | M06 | Loading model from: artifacts\model.joblib
-| INFO | M06 | Model loaded successfully
-             Importing from C:\Repos\ml\ml-06-serving\src
-
-    module   📁 bizintel
-             ├── 🐍 __init__.py
-             └── 🐍 serve_case.py
-
-      code   Importing the FastAPI app object from the module with the following code:
-
-             from bizintel.serve_case import app
-
-       app   Using import string: bizintel.serve_case:app
-
-    server   Server started at http://127.0.0.1:8000
-    server   Documentation at http://127.0.0.1:8000/docs
-
-       tip   Running in development mode, for production use: fastapi run
-
-             Logs:
-
-      INFO   Will watch for changes in these directories: ['C:\\Repos\\ml\\ml-06-serving']
-      INFO   Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-      INFO   Started reloader process [31516] using WatchFiles
-| INFO | M06 | === RUN START ===
-| INFO | M06 | project=M06
-| INFO | M06 | repo_dir=ml-06-serving
-| INFO | M06 | python=3.14.0
-| INFO | M06 | os=Windows 11
-| INFO | M06 | shell=powershell
-| INFO | M06 | cwd=.
-| INFO | M06 | github_actions=False
-| INFO | M06 | Loading model from: artifacts\model.joblib
-| INFO | M06 | Model loaded successfully
-      INFO   Started server process [10012]
-      INFO   Waiting for application startup.
-      INFO   Application startup complete.
-```
-
-## Terminal 3: Right-click and Rename "client"
-
-Open a third terminal.
-Right-click and rename it "client".
-
-Use this terminal to **send a request** to the server.
-
-We are making a request to the "/predict" endpoint.
-
-Provide information about a penguin and ask
-for the predicted species.
-
-Line continuation characters for long commands are different by operating system.
-
-- PowerShell uses a backtick.
-- Bash and zsh use a back slash
-
-The `curl` command means "check url".
-
-- X defines the type of request
-- H provides the requested response format (json data)
-- d provides a json object (a penguin where we want to get the species)
-
-### Windows PowerShell
-
-```shell
-# Task 3. Send a request to the server
-
-curl -X POST http://127.0.0.1:8000/predict `
-     -H "Content-Type: application/json" `
-     -d '{"bill_length_mm": 39.1, "bill_depth_mm": 18.7, "flipper_length_mm": 181, "body_mass_g": 3750}'
-```
-
-### macOS / Linux
-
-```shell
-# Task 3. Send a request to the server
-
-curl -X POST http://127.0.0.1:8000/predict \
-     -H "Content-Type: application/json" \
-     -d '{"bill_length_mm": 39.1, "bill_depth_mm": 18.7, "flipper_length_mm": 181, "body_mass_g": 3750}'
-```
-
-Should return the predicted result as JSON data:
-
-```json
-{ "prediction": "Adelie" }
-```
-
-Try sending some slightly different data - does it change the prediction?
-Study the data.
-Try to create a request that will answer with each of three different species (Adelie, Chinstrap, Gentoo)
-
-## Try a Web-based ML Penguin Predictor on Render
-
-Render hosts your ML model for free.
-It is easy to set up, but they require a credit card (even for the free options).
-The machines sleep so it can take a minute to wake up and answer.
-See the docs/ for more.
-
-Customize the request to see what species is predicted:
-
-```shell
-# PowerShell
-curl -X POST https://ml-penguin-predictor.onrender.com/predict `
-     -H "Content-Type: application/json" `
-     -d '{"bill_length_mm": 39.1, "bill_depth_mm": 18.7, "flipper_length_mm": 181, "body_mass_g": 3750}'
-
-# macOS / Linux
-curl -X POST https://ml-penguin-predictor.onrender.com/predict \
-     -H "Content-Type: application/json" \
-     -d '{"bill_length_mm": 39.1, "bill_depth_mm": 18.7, "flipper_length_mm": 181, "body_mass_g": 3750}'
-```
-
-## Try a Web-based ML Penguin Predictor on HuggingFace
-
-HuggingFace also hosts your ML model for free.
-It is a bit harder to set up (they use their own repo and we upload files via the browser).
-No credit card is required.
-See the docs/ for more.
-
-Customize the request to see what species is predicted:
-
-```shell
-# PowerShell
-curl -X POST https://denisecase-ml-penguin-predictor.hf.space/predict `
-     -H "Content-Type: application/json" `
-     -d '{"bill_length_mm": 39.1, "bill_depth_mm": 18.7, "flipper_length_mm": 181, "body_mass_g": 3750}'
-
-# macOS / Linux
-curl -X POST https://denisecase-ml-penguin-predictor.hf.space/predict \
-     -H "Content-Type: application/json" \
-     -d '{"bill_length_mm": 39.1, "bill_depth_mm": 18.7, "flipper_length_mm": 181, "body_mass_g": 3750}'
+| BI | Loading reporting-ready data
+| BI |   Loaded 2392 reporting rows
+| BI |   Verified 14 reporting columns
+| BI | CALL a function to summarize sales by category........
+| BI | Summarizing category sales for Region = 'East'
+| BI |   Categories summarized: 4
+| BI | CALL a function to select the leading category........
+| BI |   Selected leading category for deeper analysis: Office
+| BI | CALL a function to summarize monthly sales........
+| BI | Summarizing monthly sales for Region = 'East'
+| BI | Summarizing monthly sales for Category = 'Office'
+| BI |   Months summarized: 12
+| BI | CALL a function to plot category sales........
+| BI | Creating chart: Sales by Category in East
+| BI | Saved category chart: = docs\images\storytelling_category_sales_case.png
+| BI | CALL a function to plot monthly sales........
+| BI | Creating chart: Monthly Office Sales in East
+| BI | Saved monthly chart: = docs\images\storytelling_monthly_sales_case.png
+| BI | CALL a function to identify key results........
+| BI | Identifying key results
+| BI |   Selected region: East
+| BI |   Leading category: Office
+| BI |   Leading category sales: $456,342.94
+| BI |   Strongest month: 2025-05
+| BI |   Strongest month sales: $61,229.06
+| BI | CALL a function to show charts........
+| BI | App workflow complete
+| BI | CLOSE chart windows to continue.
+| BI | Terminate this process with CTRL+c as needed.
+| BI | ========================
+| BI | Executed successfully!
+| BI | ========================
 ```
 
 ## Findings and Visuals
 
 Take screenshots of your charts and provide them here with a discussion.
-In Markdown, display a figure by using:
+In Markdown, display a figure using:
 an exclamation mark immediately followed by square brackets containing a useful caption
 immediately followed by parentheses containing the relative path to your figure.
-Note: When you start typing the path with a dot (.) for "here, in this directory",
-the IDE may help complete the path.
 
-In your custom project, follow this example, but
+In your custom project:
 
-- your figures and narrative should reflect your work,
-- this `README.md` should include your commands, process, and visuals, and
-- `docs/index.md` should include your narrative.
+- your figures and narrative should reflect your work
+- this `README.md` should include your commands, process, and visuals
+- `docs/index.md` should include your narrative
 
-Remove unnecessary instructional comments in your custom files.
+Replace these placeholders with screenshots from your own project run:
 
-Update figures to present interesting results from your custom project:
+![Total Sales by Region](./docs/images/Figure_1.png)
 
-![Provide a Useful Caption](./docs/images/Figure_1.png)
-
-![Provide a Useful Caption](./docs/images/Figure_2.png)
+![Total Sales by Product Category](./docs/images/Figure_2.png)
 
 ## Project Documentation
 
