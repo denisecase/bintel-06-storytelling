@@ -9,17 +9,17 @@
 ## Project Description
 
 This project focuses on addressing one specific business goal
-end to end — from data to insight to recommendation.
-
-We work with the smart sales data warehouse built in bintel-04.
+end to end and telling a story with data.
 
 We learn to:
 
-- define a clear business goal and KPI
-- query only the data needed to answer the business question
-- analyze results using OLAP techniques
-- visualize findings with charts that support the recommendation
+- define a clear business question and KPI (key performance indicator)
+- use reporting-ready data to answer the business question
+- summarize and analyze the relevant data
+- create connected charts that support the findings
+- identify meaningful business insights
 - write a clear, actionable business recommendation
+- tell a story with data
 
 ## Working Files
 
